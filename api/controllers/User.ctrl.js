@@ -13,14 +13,24 @@ exports.list = async (req, res, next) => {
 exports.store = async (req, res, next) => {
 	const { name, email, phone } = req.body;
 
-	const user = await User.create({
-		name: name,
-		email: email,
-		phone: phone,
-	}); 
+	let user = await User.findOne({ where: { email: email } });
 
-	res.status(200).json({
-		message: "success store data",
-		result: user,
-	});
+	if (user) {
+		res.status(409).json({
+			message: "email already exist",
+			result: user,
+		});
+	}
+	else {
+		user = await User.create({
+			name: name,
+			email: email,
+			phone: phone,
+		}); 
+	
+		res.status(200).json({
+			message: "success store data",
+			result: user,
+		});
+	}
 };
