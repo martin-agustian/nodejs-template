@@ -2,17 +2,13 @@ const express = require("express");
 const app = express();
 
 // routes
-const AuthRoutes = require("../routes/Auth.route");
 const UserRoutes = require("../routes/User.route");
-const UploadRoutes = require("../routes/Upload.route");
 
 // middlewares
 const APIKeyGuard = require("../guards/APIKey.guard");
 
 app.use("*", APIKeyGuard);
-app.use("/auth", AuthRoutes);
 app.use("/user", UserRoutes);
-app.use("/upload", UploadRoutes);
 
 // route not found
 app.use((req, res, next) => {

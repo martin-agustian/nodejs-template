@@ -5,7 +5,7 @@ const router = express.Router();
 const UserCtrl = require("../controllers/User.ctrl");
 
 // routes
-router.get('/list', UserCtrl.list);
-router.delete('/delete', UserCtrl.delete);
+router.get('/', UserCtrl.list);
+router.post('/', UserCtrl.store);
 
 module.exports = router;
