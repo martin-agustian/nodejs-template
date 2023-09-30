@@ -1,6 +1,5 @@
 # bricks-api
 
-Stack : Node JS + Experess JS <br />
-Database : MySql + Sequelize JS ORM <br />
+Stack : Node JS + Experess JS <br /> <br />
 
-npm install -> npm run start
+Database : MySql + Sequelize JS ORM <br />

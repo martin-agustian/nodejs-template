@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 // controller
-const UserController = require("../controllers/User.controller");
+const UserCtrl = require("../controllers/User.ctrl");
 
 // routes
-router.get('/list', UserController.list);
-router.delete('/delete', UserController.delete);
+router.get('/list', UserCtrl.list);
+router.delete('/delete', UserCtrl.delete);
 
 module.exports = router;

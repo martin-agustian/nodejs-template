@@ -6,10 +6,10 @@ const AuthRoutes = require("../routes/Auth.route");
 const UserRoutes = require("../routes/User.route");
 const UploadRoutes = require("../routes/Upload.route");
 
-// middleware
-const APIKeyMiddleware = require("../middlewares/APIKey.middleware");
+// middlewares
+const APIKeyGuard = require("../guards/APIKey.guard");
 
-app.use("*", APIKeyMiddleware);
+app.use("*", APIKeyGuard);
 app.use("/auth", AuthRoutes);
 app.use("/user", UserRoutes);
 app.use("/upload", UploadRoutes);

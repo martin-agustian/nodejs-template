@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// sql connection
-require("./configs/Model.config");
+// models
+require("./models/Base.model");
 
 // cors
 app.use((req, res, next) => {
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-// routing
-app.use("/", require("./configs/Route.config"));
+// routes
+app.use("/", require("./routes/Base.route"));
 
 module.exports = app;
