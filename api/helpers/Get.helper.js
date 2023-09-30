@@ -1,8 +1,8 @@
-export function getRandom(length, notChars) {
-	let result = '';
+exports.getRandom = (length, notChars) => {
+	let result = "";
 
-	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';	
-	if (notChars) characters.replace(notChars, '');
+	const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	if (notChars) characters.replace(notChars, "");
 	const charactersLength = characters.length;
 
 	let counter = 0;
@@ -11,4 +11,14 @@ export function getRandom(length, notChars) {
 		counter += 1;
 	}
 	return result;
-}
+};
+
+exports.getValidateError = (validate) => {
+	let errors = [];
+
+	Object.values(validate.errors.errors).forEach((error) => {
+		errors.push(error[0]);
+	});
+
+	return errors;
+};

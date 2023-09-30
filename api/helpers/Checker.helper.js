@@ -1,4 +1,4 @@
-export const isEmpty = (value) => {
+exports.isEmpty = (value) => {
 	let isEmpty = false;
 
   if (value === null || value === undefined) {
@@ -16,11 +16,11 @@ export const isEmpty = (value) => {
 	return isEmpty;
 };
 
-export const isEmail = (value) => {
+exports.isEmail = (value) => {
   return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
 };
 
-export const isPhone = (value) => {
+exports.isPhone = (value) => {
   let isPhone = false;
 
   let regEx = /(^\+\d*$|^\d{3}[-]\d*$|^\(?\d{2,3}\)\d*$|^\d*$)/;
