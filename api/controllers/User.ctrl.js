@@ -1,4 +1,4 @@
-const db = require("../configs/Model.config");
+const db = require("../configs/Sequelize.config");
 const User = db.User;
 
 exports.list = async (req, res, next) => {

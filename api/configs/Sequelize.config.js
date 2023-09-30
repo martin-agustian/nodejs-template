@@ -26,17 +26,4 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// models
-db.User = require("../models/User.model")(sequelize, Sequelize);
-
-// sync models
-db.sequelize
-	.sync({ force: false, alter: true })
-	.then((result) => {
-		console.log("Database sync successfully.");
-	})
-	.catch((error) => {
-		console.error("Unable to sync database: ", error);
-	});
-
 module.exports = db;

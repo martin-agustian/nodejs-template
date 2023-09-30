@@ -1,4 +1,4 @@
-const db = require("../configs/Model.config");
+const db = require("../configs/Sequelize.config");
 
 exports.upload = async (req, res, next) => {
 	res.status(200).json({
