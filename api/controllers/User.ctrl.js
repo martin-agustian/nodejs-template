@@ -1,8 +1,9 @@
-const db = require("../configs/Sequelize.config");
-const User = db.User;
+// models
+const db = require("../models/Base.model");
+const User = db.user;
 
-const Validator = require("validatorjs");
-const logger = require("../configs/Winston.config");
+const Validator = require("validatorjs"); // validator
+const logger = require("../configs/Winston.config"); // logger
 
 // helpers
 const { getValidateError } = require("../helpers/Get.helper");
@@ -10,34 +11,6 @@ const EmailHelper = require("../helpers/Email.helper");
 
 exports.list = async (req, res, next) => {	
 	const users = await User.findAll();
-
-	// try {
-		const sendEmail = await EmailHelper.send({
-			formName: "martin agustian",
-			fromEmail: "martinagustian@yahoo.com",
-			subject: "test",
-			to: "record1zero@gmail.com",
-		}).catch(error => {
-			logger.log({
-				level: "error",
-				message: JSON.stringify({
-					id: "record1zero@gmail.com",
-					message: error
-				})
-			});
-		})	
-	// }
-	// catch (error) {
-	// 	logger.log({
-	// 		level: "error",
-	// 		message: {
-	// 			id: "record1zero@gmail.com",
-	// 			message: error
-	// 		}
-	// 	});
-	// } 
-
-	// console.log(sendEmail);
 
 	res.status(200).json({
 		message: "success fetch data",
@@ -75,6 +48,21 @@ exports.store = async (req, res, next) => {
 				email: email,
 				phone: phone,
 			});
+
+			EmailHelper.send({
+				formName: process.env.NODEMAILER_NAME,
+				fromEmail: process.env.NODEMAILER_USER,
+				subject: "Thank you for register",
+				to: email,
+			}).catch(error => {
+				logger.log({
+					level: "error",
+					message: JSON.stringify({
+						id: email,
+						message: error
+					})
+				});
+			})
 
 			res.status(200).json({
 				message: "success store data",
