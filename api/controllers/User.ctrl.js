@@ -1,17 +1,37 @@
 const db = require("../configs/Sequelize.config");
-const Validator = require("validatorjs");
-
-// databases
 const User = db.User;
 
-// helper
-const { getValidateError } = require("../helpers/Get.helper");
-const { sendEmail } = require("./Email.ctrl");
+const Validator = require("validatorjs");
+const logger = require("../configs/Winston.config");
 
-exports.list = async (req, res, next) => {
+// helpers
+const { getValidateError } = require("../helpers/Get.helper");
+const EmailHelper = require("../helpers/Email.helper");
+
+exports.list = async (req, res, next) => {	
 	const users = await User.findAll();
 
-	sendEmail();
+	try {
+		const sendEmail = await EmailHelper.send({
+			formName: "martin agustian",
+			fromEmail: "martinagustian@yahoo.com",
+			subject: "test",
+			to: "record1zero@gmail.com",
+		}).catch(error => {
+			console.log(error);
+		})	
+	}
+	catch (error) {
+		logger.log({
+			level: "error",
+			message: {
+				id: "record1zero@gmail.com",
+				message: error
+			}
+		});
+	} 
+
+	// console.log(sendEmail);
 
 	res.status(200).json({
 		message: "success fetch data",

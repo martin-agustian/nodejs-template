@@ -3,12 +3,14 @@ const app = express();
 
 // routes
 const UserRoutes = require("../routes/User.route");
+const EmailRoutes = require("../routes/Email.route");
 
 // middlewares
 const APIKeyGuard = require("../guards/APIKey.guard");
 
 app.use("*", APIKeyGuard);
 app.use("/user", UserRoutes);
+app.use("/email", EmailRoutes);
 
 // route not found
 app.use((req, res, next) => {
