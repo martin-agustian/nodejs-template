@@ -50,7 +50,7 @@ exports.store = async (req, res, next) => {
 			});
 
 			EmailHelper.send({
-				formName: process.env.NODEMAILER_NAME,
+				fromName: process.env.NODEMAILER_NAME,
 				fromEmail: process.env.NODEMAILER_USER,
 				subject: "Thank you for register",
 				to: email,

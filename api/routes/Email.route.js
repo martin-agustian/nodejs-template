@@ -5,6 +5,6 @@ const router = express.Router();
 const EmailCtrl = require("../controllers/Email.ctrl");
 
 // routes
-router.post('/send', EmailCtrl.send);
+router.post('/forgot-password', EmailCtrl.forgotPassword);
 
 module.exports = router;
