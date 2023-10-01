@@ -1,28 +1,26 @@
-const transporter = require("../configs/Nodemailer.config");
+exports.send = async (req, res, next) => {
+  const { to, subject } = req.body;
 
-const send = async (req, res, next) => {
-  // const { to, subject, from } = req.body;
+	await EmailHelper.send({
+		formName: process.env.NODEMAILER_NAME,
+		fromEmail: process.env.NODEMAILER_USER,
+		subject: subject,
+		to: to,
+	}).catch(error => {
+		logger.log({
+			level: "error",
+			message: JSON.stringify({
+				id: to,
+				message: error
+			})
+		});
 
-  console.log(req);
+		res.status(200).json({
+			message: "error send email to" + to,
+		});
+	});
 
-	// await transporter.sendMail(
-	// 	{
-	// 		from: '"Fred Foo 👻" <martinagustian@outlook.com>',
-	// 		to: to,
-	// 		subject: subject,
-	// 		text: "Hello world?", 
-	// 		html: "<b>Hello world?</b>",
-	// 	},
-	// 	function (error, info) {
-	// 		if (error) {
-	// 			console.log(error);
-	// 		} else {
-	// 			console.log("Email sent: " + info.response);
-	// 		}
-	// 	}
-	// );
+	res.status(200).json({
+		message: "success send email to" + to,
+	});
 };
-
-const emailCtrl = { send };
-
-module.exports = emailCtrl;
