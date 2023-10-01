@@ -7,7 +7,7 @@ const LogModel = (sequelize, Sequelize) => {
 		message: { type: DataTypes.STRING },
 		meta: { type: DataTypes.STRING },
     timestamp: { type: DataTypes.DATE }
-	});
+	}, { timestamp: false });
 
 	return Log;
 };

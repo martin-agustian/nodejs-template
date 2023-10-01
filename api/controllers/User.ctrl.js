@@ -11,25 +11,31 @@ const EmailHelper = require("../helpers/Email.helper");
 exports.list = async (req, res, next) => {	
 	const users = await User.findAll();
 
-	try {
+	// try {
 		const sendEmail = await EmailHelper.send({
 			formName: "martin agustian",
 			fromEmail: "martinagustian@yahoo.com",
 			subject: "test",
 			to: "record1zero@gmail.com",
 		}).catch(error => {
-			console.log(error);
+			logger.log({
+				level: "error",
+				message: JSON.stringify({
+					id: "record1zero@gmail.com",
+					message: error
+				})
+			});
 		})	
-	}
-	catch (error) {
-		logger.log({
-			level: "error",
-			message: {
-				id: "record1zero@gmail.com",
-				message: error
-			}
-		});
-	} 
+	// }
+	// catch (error) {
+	// 	logger.log({
+	// 		level: "error",
+	// 		message: {
+	// 			id: "record1zero@gmail.com",
+	// 			message: error
+	// 		}
+	// 	});
+	// } 
 
 	// console.log(sendEmail);
 
