@@ -6,10 +6,10 @@ const Validator = require("validatorjs"); // validator
 const logger = require("../configs/Winston.config"); // logger
 
 // helpers
-const { getValidateError } = require("../helpers/Get.helper");
+const GetHelper = require("../helpers/Get.helper");
 const EmailHelper = require("../helpers/Email.helper");
 
-exports.list = async (req, res, next) => {	
+exports.list = async (req, res, next) => {
 	const users = await User.findAll();
 
 	res.status(200).json({
@@ -54,15 +54,16 @@ exports.store = async (req, res, next) => {
 				fromEmail: process.env.NODEMAILER_USER,
 				subject: "Thank you for register",
 				to: email,
-			}).catch(error => {
+				html: "Thank you for register, we let you know when our website is ready",
+			}).catch((error) => {
 				logger.log({
 					level: "error",
 					message: JSON.stringify({
 						id: email,
-						message: error
-					})
+						message: error,
+					}),
 				});
-			})
+			});
 
 			res.status(200).json({
 				message: "success store data",
@@ -70,9 +71,11 @@ exports.store = async (req, res, next) => {
 			});
 		}
 	} else {
+		let error = GetHelper.getValidateError(validate);
+
 		res.status(500).json({
-			message: getValidateError(validate),
-			result: null
+			message: error,
+			result: null,
 		});
 	}
 };
