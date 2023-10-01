@@ -6,9 +6,12 @@ const User = db.User;
 
 // helper
 const { getValidateError } = require("../helpers/Get.helper");
+const { sendEmail } = require("./Email.ctrl");
 
 exports.list = async (req, res, next) => {
 	const users = await User.findAll();
+
+	sendEmail();
 
 	res.status(200).json({
 		message: "success fetch data",
